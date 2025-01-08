@@ -3,7 +3,7 @@ import time
 import math
 done = False
 deck = []
-chips = 100
+chips = 1000
 
 art = ''' 
  -------    -------
@@ -50,7 +50,7 @@ def deckDraw(receiver):
 
 
 
-while done == False:
+while chips > 0:
     deck = shuffle(deck)
     dealer = []
     player = []
@@ -63,7 +63,18 @@ while done == False:
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
     print(art + '\n\nBlackjack! Dealer must hit to 16 and stand on 17\n\n\n')
     print(f'Chips: {chips}')
-    bet = int(input('Place bet: '))
+    bet = 0
+    while bet == 0:
+        try:
+            betTry = int(input('Place bet: '))
+            if betTry > chips:
+                print("\nBet too high\n")
+            else:
+                bet = betTry
+        except:
+            print("\nNot a valid bet\n")
+
+    print()
 
     player_value = deckDraw(player)
     player_value = deckDraw(player)
@@ -88,7 +99,7 @@ while done == False:
 
 
     while move != "over":
-        if move == "null":
+        if move == "null" and (bet * 2) <= chips:
             move = str(input("Hit/Stand/Double Down: "))
         elif player_value == 21:
             move = "s"
@@ -107,7 +118,9 @@ while done == False:
                 move = "over"
             moved = True
         elif move.lower() == "double down" or move.lower() == "double" or move.lower() == "d" or move.lower() == "dd":
-            if moved == False:
+            if bet * 2 > chips:
+                print("\nNot enough chips\n")                
+            elif moved == False:
                 bet = bet * 2
                 player_value = deckDraw(player)
                 print('\nPlayer:',end=" ")
@@ -118,8 +131,12 @@ while done == False:
                 if player_value > 21:
                     print('Bust!')
                 move = "over"
+            else:
+                print("\nCannot Double Down after first turn\n")
         elif move.lower() == "s" or move.lower() == "stand":
             move = "over"
+        else:
+            print("\nNot a valid move\n")
     print('\n\n\n')
     
     if player_value < 22 and (dealer_black + player_black) == False:
@@ -132,7 +149,7 @@ while done == False:
             print(f'|{dealer[y]}|', end=" ")
         print(f'-> {dealer_value}')
         if dealer_value > 21:
-            print('Bust!')
+            print('\nBust!')
         print('\n')        
         if dealer_value > 16:
             game = False
@@ -162,9 +179,8 @@ while done == False:
     print(f'\nChips: {chips}')
 
     
-    time.sleep(2)
-    end = str(input('\n\nContinue play? (y/n): '))
-    if end.lower() != "y":
-        done = True
+    time.sleep(5)
 
+print("\n\n\n\n\n\nYou Lost :(\n\nTry again next time!")
 
+time.sleep(5)
