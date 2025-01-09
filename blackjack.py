@@ -60,7 +60,7 @@ while chips > 0:
     moved = False
     dealer_black = False
     player_black = False
-    print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+    print('\033[92m\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
     print(art + '\n\nBlackjack! Dealer must hit to 16 and stand on 17\n\n\n')
     print(f'Chips: {chips}')
     bet = 0
